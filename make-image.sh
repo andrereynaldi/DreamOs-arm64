@@ -21,20 +21,20 @@ curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
 luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files"
 
 # USB + LAN Networking Drivers And Tethering Tools
-PACKAGES+=" kmod-usb-net kmod-mii kmod-nls-utf8 kmod-usb2 \
+PACKAGES+=" kmod-usb-net kmod-mii kmod-usb2 \
 kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 
 # Storage - NAS
-PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas ntfs-3g"
+PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas"
 
 # Theme + UI
 PACKAGES+=" luci-theme-argon"
 
 # PHP8
-PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
-
+PACKAGES+=" php8 php8-cgi php8-fastcgi php8-fpm php8-mod-ctype php8-mod-fileinfo php8-mod-iconv php8-mod-mbstring php8-mod-session php8-mod-zip"
+            
 # Misc Packages + Custom Packages
-MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server zram-swap screen lolcat \
+MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server screen \
 luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
 
 # VPN Tunnel
