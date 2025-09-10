@@ -28,14 +28,14 @@ kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas"
 
 # Theme + UI
-PACKAGES+=" luci-theme-argon"
+#PACKAGES+=" luci-theme-argon"
 
 # PHP8
 PACKAGES+=" php8 php8-cgi php8-fastcgi php8-fpm php8-mod-ctype php8-mod-fileinfo php8-mod-iconv php8-mod-mbstring php8-mod-session php8-mod-zip"
             
 # Misc Packages + Custom Packages
 MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server screen \
-luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
+luci-theme-argon luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
 
 # VPN Tunnel
 OPENCLASH="coreutils-nohup bash ca-certificates ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy luci-app-openclash"
