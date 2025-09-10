@@ -39,7 +39,7 @@ luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luc
 
 # VPN Tunnel
 OPENCLASH="coreutils-nohup bash ca-certificates ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy luci-app-openclash"
-NIKKI="nikki luci-app-nikki"
+NIKKI="luci-app-nikki"
 NEKO="bash kmod-tun php8 php8-cgi luci-app-neko"
 PASSWALL="chinadns-ng resolveip dns2socks dns2tcp ipt2socks microsocks tcping xray-core xray-plugin luci-app-passwall"
 
