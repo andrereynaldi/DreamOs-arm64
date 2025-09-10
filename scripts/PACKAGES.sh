@@ -63,7 +63,7 @@ packages_custom+=(
     # "luci-theme-edge_|${REPOS[KIDDIN9]}"
     
     "luci-app-tinyfm_|https://api.github.com/repos/bobbyunknown/luci-app-tinyfm/releases/latest"
-    "luci-theme-argon_|https://api.github.com/jerrykuku/luci-theme-argon/releases/latest"
+    "luci-theme-argon_|https://api.github.com/repos/jerrykuku/luci-theme-argon/releases/latest"
     # "luci-app-droidnet_|https://api.github.com/repos/animegasan/luci-app-droidmodem/releases/latest"
     # "luci-theme-alpha_|https://api.github.com/repos/derisamedia/luci-theme-alpha/releases/latest"
     # "luci-app-tailscale_|https://api.github.com/repos/asvow/luci-app-tailscale/releases/latest"
