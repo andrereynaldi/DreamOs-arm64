@@ -96,12 +96,12 @@ log_status "SUCCESS" "Misc settings configured"
 
 # add TTL
 log_status "INFO" "Adding and running TTL script..."
-if [ -f /root/indowrt.sh ]; then
-    chmod +x /root/indowrt.sh 2>/dev/null
+if [ -f /root/TTL.sh ]; then
+    chmod +x /root/TTL.sh 2>/dev/null
     /root/indowrt.sh
     log_status "SUCCESS" "TTL script executed"
 else
-    log_status "WARNING" "indowrt.sh not found, skipping TTL configuration"
+    log_status "WARNING" "TTL.sh not found, skipping TTL configuration"
 fi
 
 # konfigurasi uhttpd dan PHP8
