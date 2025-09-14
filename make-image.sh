@@ -27,9 +27,6 @@ kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 # Storage - NAS
 PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas"
 
-# Theme + UI
-#PACKAGES+=" luci-theme-argon"
-
 # PHP8
 PACKAGES+=" php8 php8-cgi php8-fastcgi php8-fpm php8-mod-ctype php8-mod-fileinfo php8-mod-iconv php8-mod-mbstring php8-mod-session php8-mod-zip"
             
