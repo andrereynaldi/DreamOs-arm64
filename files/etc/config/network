@@ -13,7 +13,6 @@ config device
 	option type 'bridge'
 	option ipv6 '0'
 	list ports 'eth0'
-	list ports 'eth1'
 
 config interface 'bridge'
 	option device 'br-lan'
@@ -25,10 +24,6 @@ config interface 'bridge'
 config interface 'tethering'
 	option proto 'dhcp'
 	option device 'usb0'
-
-config interface 'lan1'
-	option proto 'dhcp'
-	option device 'eth1'
 
 config interface 'lan0'
 	option proto 'dhcp'
