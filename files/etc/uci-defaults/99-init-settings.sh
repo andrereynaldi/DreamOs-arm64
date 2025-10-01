@@ -63,6 +63,63 @@ log_status "INFO" "Setting up root password..."
 (echo "123456879"; sleep 2; echo "123456879") | passwd >/dev/null 2>&1
 log_status "SUCCESS" "Root password configured"
 
+# configure wireless device
+log_status "INFO" "Configuring wireless devices..."
+uci set wireless.@wifi-device[0].disabled='0' 2>/dev/null
+uci set wireless.@wifi-iface[0].disabled='0' 2>/dev/null
+uci set wireless.@wifi-iface[0].mode='ap' 2>/dev/null
+uci set wireless.@wifi-iface[0].encryption='psk2' 2>/dev/null
+uci set wireless.@wifi-iface[0].key='123456879' 2>/dev/null
+uci set wireless.@wifi-device[0].country='ID' 2>/dev/null
+
+# check for Raspberry Pi Devices
+if grep -q "Raspberry Pi 4\|Raspberry Pi 3" /proc/cpuinfo 2>/dev/null; then
+    log_status "INFO" "Raspberry Pi 3/4 detected, configuring 5GHz WiFi..."
+    uci set wireless.@wifi-iface[0].ssid='DreamOs_5G' 2>/dev/null
+    uci set wireless.@wifi-device[0].channel='149' 2>/dev/null
+    uci set wireless.@wifi-device[0].htmode='VHT80' 2>/dev/null
+else
+    uci set wireless.@wifi-iface[0].ssid='DreamOs_2.4G' 2>/dev/null
+    uci set wireless.@wifi-device[0].channel='1' 2>/dev/null
+    uci set wireless.@wifi-device[0].htmode='HT20' 2>/dev/null
+    log_status "INFO" "Standard WiFi configuration applied"
+fi
+
+uci commit wireless 2>/dev/null
+wifi reload >/dev/null 2>&1
+wifi up >/dev/null 2>&1
+log_status "SUCCESS" "Wireless configuration completed"
+
+# check wireless interface
+if iw dev 2>/dev/null | grep -q Interface; then
+    log_status "SUCCESS" "Wireless interface detected"
+    if grep -q "Raspberry Pi 4\|Raspberry Pi 3" /proc/cpuinfo 2>/dev/null; then
+        if ! grep -q "wifi up" /etc/rc.local 2>/dev/null; then
+            sed -i '/exit 0/i # remove if you dont use wireless' /etc/rc.local 2>/dev/null
+            sed -i '/exit 0/i sleep 10 && wifi up' /etc/rc.local 2>/dev/null
+        fi
+        if ! grep -q "wifi up" /etc/crontabs/root 2>/dev/null; then
+            echo "# remove if you dont use wireless" >> /etc/crontabs/root 2>/dev/null
+            echo "0 */12 * * * wifi down && sleep 5 && wifi up" >> /etc/crontabs/root 2>/dev/null
+            /etc/init.d/cron restart >/dev/null 2>&1
+        fi
+    fi
+else
+    log_status "WARNING" "No wireless device detected"
+fi
+
+# setup device amlogic
+log_status "INFO" "Checking for Amlogic device configuration..."
+if opkg list-installed 2>/dev/null | grep -q luci-app-amlogic; then
+    log_status "INFO" "luci-app-amlogic detected"
+    rm -f /etc/profile.d/30-sysinfo.sh 2>/dev/null
+    sed -i '/exit 0/i #sleep 5 && /usr/bin/k5hgled -r' /etc/rc.local 2>/dev/null
+    sed -i '/exit 0/i #sleep 5 && /usr/bin/k6hgled -r' /etc/rc.local 2>/dev/null
+else
+    log_status "INFO" "luci-app-amlogic not detected"
+    rm -f /usr/bin/k5hgled /usr/bin/k6hgled /usr/bin/k5hgledon /usr/bin/k6hgledon 2>/dev/null
+fi
+
 # disable opkg signature check
 log_status "INFO" "Disabling OPKG signature check..."
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf 2>/dev/null
