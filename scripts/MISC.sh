@@ -97,7 +97,7 @@ download_custom_scripts() {
     
     local scripts=(
 #        "https://raw.githubusercontent.com/frizkyiman/fix-read-only/main/install2.sh|files/root"
-#        "https://raw.githubusercontent.com/andrereynaldi/DreamOs-arm64/refs/heads/main/xxx/TTL.sh"
+        "https://raw.githubusercontent.com/andrereynaldi/DreamOs-arm64/refs/heads/main/xxx/TTL.sh"
     )
     
     for script in "${scripts[@]}"; do
@@ -110,7 +110,9 @@ download_custom_scripts() {
 main() {
     init_environment
     setup_base_config
+    handle_amlogic_files
     setup_branch_config
+    configure_amlogic_permissions
     download_custom_scripts
     log "SUCCESS" "All custom configuration setup completed!"
 }
