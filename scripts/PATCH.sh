@@ -11,6 +11,19 @@ init_environment() {
     cd $GITHUB_WORKSPACE/$WORKING_DIR || error "Failed to change directory"
 }
 
+# Apply distribution-specific patches
+apply_distro_patches() {
+    if [[ "${BASE}" == "openwrt" ]]; then
+        log "INFO" "Applying OpenWrt specific patches"
+    elif [[ "${BASE}" == "immortalwrt" ]]; then
+        log "INFO" "Applying ImmortalWrt specific patches"
+        # Remove redundant default packages
+        sed -i "/luci-app-cpufreq/d" include/target.mk
+    else
+        log "INFO" "Unknown distribution: ${BASE}"
+    fi
+}
+
 # Patch package signature checking
 patch_signature_check() {
     log "INFO" "Disabling package signature checking"
@@ -38,9 +51,6 @@ configure_amlogic() {
         sed -i "s|CONFIG_TARGET_ROOTFS_EXT4FS=.*|# CONFIG_TARGET_ROOTFS_EXT4FS is not set|g" .config
         sed -i "s|CONFIG_TARGET_ROOTFS_SQUASHFS=.*|# CONFIG_TARGET_ROOTFS_SQUASHFS is not set|g" .config
         sed -i "s|CONFIG_TARGET_IMAGES_GZIP=.*|# CONFIG_TARGET_IMAGES_GZIP is not set|g" .config
-        sed -i "s/# CONFIG_PACKAGE_perl is not set/CONFIG_PACKAGE_perl=y/" .config
-        sed -i "s/# CONFIG_PACKAGE_perlbase-essential is not set/CONFIG_PACKAGE_perlbase-essential=y/" .config
-        sed -i "s/# CONFIG_PACKAGE_perlbase-strict is not set/CONFIG_PACKAGE_perlbase-strict=y/" .config
     else
         # Jika tipe lain, hanya tampilkan informasi
         log "INFO" "system type: ${TYPE}"
@@ -109,6 +119,7 @@ configure_raspi1() {
 # Main execution
 main() {
     init_environment
+    apply_distro_patches
     patch_signature_check
     patch_makefile
     configure_partitions
