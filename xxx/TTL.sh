@@ -133,7 +133,7 @@ buat_page_htm() {
         <input type="number" id="ttl_value" name="ttl_value" min="1" max="255" value="<%= ttl_value %>" required>
     </div>
     <div class="cbi-section">
-        <button class="cbi-button cbi-button-apply" type="submit" style="display:inline-block; width:auto; padding:2px 10px;height:auto;line-height:normal;>
+        <button class="cbi-button cbi-button-apply" type="submit" style="display:inline-block; width:auto; padding:2px 10px; height:auto; line-height:normal;">
 Apply
         </button>
     </div>
